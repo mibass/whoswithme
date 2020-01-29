@@ -6,13 +6,15 @@ drop table if exists messages;
 drop table if exists KISMET;
 drop table if exists packets;
 
+/*from https://github.com/breenie/SqliteExtensions */
+/*compile with gcc -bundle -fPIC -Isqlite3 -o digest.so digest.c */
+select load_extension('digest.so');
 
 create table if not exists devices_xform as
     select first_time,
             last_time,
-            devkey,
             phyname,
-            devmac,
+            sha1(devmac) devmac_hash,
             strongest_signal,
             type
     from devices
