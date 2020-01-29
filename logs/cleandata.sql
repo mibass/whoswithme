@@ -19,3 +19,4 @@ create table if not exists devices_xform as
 ;
 
 drop table if exists devices;
+vacuum;
