@@ -1,6 +1,9 @@
 #!/bin/bash
 shopt -s nullglob
 
+#get all new files
+rsync -a --ignore-existing pi@192.168.1.10:/home/pi/logs/*.kismet ./
+
 for file in ./*.kismet; do
     #sanitize it
     sqlite3 "$file" < cleandata.sql
@@ -14,3 +17,10 @@ for file in ./*.kismet; do
     vacuum;
 EOS
 done
+
+#clean up short sessions
+sqlite3 db.sqlite <<EOS
+delete from devices where session_time in (select session_time 
+    from devices group by 1 having count(*)<1e4);
+vacuum;
+EOS
