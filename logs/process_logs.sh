@@ -11,5 +11,6 @@ for file in ./*.kismet; do
         select (select min(first_time) from dba.devices_xform) session_time,
             * 
         from dba.devices_xform;
+    vacuum;
 EOS
 done
