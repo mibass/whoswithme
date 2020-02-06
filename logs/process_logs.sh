@@ -1,5 +1,4 @@
-#!/bin/bash
-shopt -s nullglob
+#!/bin/sh
 
 #get all new files
 rsync -a --ignore-existing pi@192.168.1.10:/home/pi/logs/*.kismet ./
