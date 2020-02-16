@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #get all new files
-rsync -a --ignore-existing pi@192.168.1.10:/home/pi/logs/*.kismet ./
+rsync -a --ignore-existing pi@192.168.1.22:/home/pi/logs/*.kismet ./
 
 for file in ./*.kismet; do
     #sanitize it
@@ -18,8 +18,8 @@ EOS
 done
 
 #clean up short sessions
-sqlite3 db.sqlite <<EOS
-delete from devices where session_time in (select session_time 
-    from devices group by 1 having count(*)<1e4);
-vacuum;
-EOS
+# sqlite3 db.sqlite <<EOS
+# delete from devices where session_time in (select session_time 
+#     from devices group by 1 having count(*)<1e4);
+# vacuum;
+# EOS
